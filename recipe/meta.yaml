@@ -16,16 +16,25 @@ build:
 
 requirements:
   host:
-    - python {{ python_min }}
     - pip
+    - python {{ python_min }}
     - setuptools
-
   run:
     - python >={{ python_min }}
 
 test:
   imports:
     - mimeparse
+  commands:
+    - pip check
+    - pytest mimeparse_test.py
+  requires:
+    - pip
+    - pytest
+    - python {{ python_min }}
+  source_files:
+    - mimeparse_test.py
+    - testdata.json
 
 about:
   home: https://github.com/dbtsai/python-mimeparse
