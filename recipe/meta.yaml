@@ -1,29 +1,27 @@
 {% set name = "python-mimeparse" %}
 {% set version = "2.0.0" %}
-{% set compress_type = "tar.gz" %}
-{% set hash_val = "5b9a9dcf7aa82465e31bd667f5cb7000604811dce83554f1c8a43693a32cb303" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.{{ compress_type }}
-  sha256: {{ hash_val }}
+  url: https://pypi.org/packages/source/p/python-mimeparse/python_mimeparse-{{ version }}.tar.gz
+  sha256: 5b9a9dcf7aa82465e31bd667f5cb7000604811dce83554f1c8a43693a32cb303
 
 build:
   noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: python -m pip install . --no-deps -vv
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
+    - setuptools
 
   run:
-    - python
+    - python >= {{ python_min }}
 
 test:
   imports:
@@ -40,5 +38,6 @@ about:
 
 extra:
   recipe-maintainers:
+    - MementoRC
     - anguslees
     - pmlandwehr
